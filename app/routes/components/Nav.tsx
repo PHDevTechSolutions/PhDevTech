@@ -1,12 +1,7 @@
 import { useState } from "react";
 import { Link } from "@remix-run/react";
 import { motion, AnimatePresence } from "framer-motion";
-import dynamic from "next/dynamic";
-
-// Dynamically load icons to prevent too many open files issue
-const MenuIcon = dynamic(() => import("lucide-react").then((mod) => mod.Menu), { ssr: false });
-const XIcon = dynamic(() => import("lucide-react").then((mod) => mod.X), { ssr: false });
-const ChevronDownIcon = dynamic(() => import("lucide-react").then((mod) => mod.ChevronDown), { ssr: false });
+import { Menu, X, ChevronDown } from "lucide-react"; // Diretso na ang import
 
 export default function Nav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,7 +32,7 @@ export default function Nav() {
           {/* Projects Dropdown */}
           <div className="relative">
             <button onClick={toggleProjectsMenu} className="flex items-center gap-1 hover:text-teal-400 transition">
-              Projects <ChevronDownIcon className="w-5 h-5" />
+              Projects <ChevronDown className="w-5 h-5" />
             </button>
             <AnimatePresence>
               {isProjectsOpen && (
@@ -65,7 +60,7 @@ export default function Nav() {
         {/* Mobile Menu Button */}
         <div className="lg:hidden">
           <button onClick={toggleMenu} className="focus:outline-none">
-            {isOpen ? <XIcon className="w-8 h-8" /> : <MenuIcon className="w-8 h-8" />}
+            {isOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
           </button>
         </div>
       </div>
@@ -81,7 +76,7 @@ export default function Nav() {
             className="fixed top-0 left-0 w-64 h-full bg-[#0a192f] shadow-lg p-6 z-50"
           >
             <button onClick={toggleMenu} className="absolute top-4 right-4">
-              <XIcon className="w-6 h-6 text-white" />
+              <X className="w-6 h-6 text-white" />
             </button>
             <ul className="space-y-4 text-lg font-medium mt-10">
               {["Home", "About Us", "Services"].map((item, index) => (
@@ -101,7 +96,7 @@ export default function Nav() {
                   onClick={toggleProjectsMenu}
                   className="flex items-center justify-between w-full hover:text-teal-400 transition"
                 >
-                  Projects <ChevronDownIcon className={`w-5 h-5 transition ${isProjectsOpen ? "rotate-180" : ""}`} />
+                  Projects <ChevronDown className={`w-5 h-5 transition ${isProjectsOpen ? "rotate-180" : ""}`} />
                 </button>
                 <AnimatePresence>
                   {isProjectsOpen && (
