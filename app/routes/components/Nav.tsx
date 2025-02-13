@@ -64,7 +64,7 @@ export default function Nav() {
         {/* Mobile Menu Button */}
         <div className="lg:hidden">
           <button onClick={toggleMenu} className="focus:outline-none">
-            {isOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
+            {isOpen ? <XIcon className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
           </button>
         </div>
       </div>
