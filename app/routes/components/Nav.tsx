@@ -3,6 +3,7 @@ import { Link } from "@remix-run/react";
 import { motion, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
 
+// Dynamically load icons to prevent too many open files issue
 const MenuIcon = dynamic(() => import("lucide-react").then((mod) => mod.Menu), { ssr: false });
 const XIcon = dynamic(() => import("lucide-react").then((mod) => mod.X), { ssr: false });
 const ChevronDownIcon = dynamic(() => import("lucide-react").then((mod) => mod.ChevronDown), { ssr: false });
