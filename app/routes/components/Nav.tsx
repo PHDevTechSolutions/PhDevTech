@@ -80,7 +80,7 @@ export default function Nav() {
             className="fixed top-0 left-0 w-64 h-full bg-[#0a192f] shadow-lg p-6 z-50"
           >
             <button onClick={toggleMenu} className="absolute top-4 right-4">
-              <X className="w-6 h-6 text-white" />
+              <XIcon className="w-6 h-6 text-white" />
             </button>
             <ul className="space-y-4 text-lg font-medium mt-10">
               {["Home", "About Us", "Services"].map((item, index) => (
