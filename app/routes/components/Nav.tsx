@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "@remix-run/react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiMenu, FiX, FiChevronDown } from "react-icons/fi"; // Gumagamit ng react-icons
 
 export default function Nav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,8 +30,8 @@ export default function Nav() {
           ))}
           {/* Projects Dropdown */}
           <div className="relative">
-            <button onClick={toggleProjectsMenu} className="flex items-center gap-1 hover:text-teal-400 transition">
-              Projects <FiChevronDown className="w-5 h-5" />
+            <button onClick={toggleProjectsMenu} className="hover:text-teal-400 transition">
+              Projects ▼
             </button>
             <AnimatePresence>
               {isProjectsOpen && (
@@ -60,7 +59,7 @@ export default function Nav() {
         {/* Mobile Menu Button */}
         <div className="lg:hidden">
           <button onClick={toggleMenu} className="focus:outline-none">
-            {isOpen ? <FiX className="w-8 h-8" /> : <FiMenu className="w-8 h-8" />}
+            {isOpen ? "Close" : "Menu"}
           </button>
         </div>
       </div>
@@ -76,7 +75,7 @@ export default function Nav() {
             className="fixed top-0 left-0 w-64 h-full bg-[#0a192f] shadow-lg p-6 z-50"
           >
             <button onClick={toggleMenu} className="absolute top-4 right-4">
-              <FiX className="w-6 h-6 text-white" />
+              Close
             </button>
             <ul className="space-y-4 text-lg font-medium mt-10">
               {["Home", "About Us", "Services"].map((item, index) => (
@@ -92,11 +91,8 @@ export default function Nav() {
               ))}
               {/* Mobile Projects Dropdown */}
               <li className="relative">
-                <button
-                  onClick={toggleProjectsMenu}
-                  className="flex items-center justify-between w-full hover:text-teal-400 transition"
-                >
-                  Projects <FiChevronDown className={`w-5 h-5 transition ${isProjectsOpen ? "rotate-180" : ""}`} />
+                <button onClick={toggleProjectsMenu} className="hover:text-teal-400 transition">
+                  Projects ▼
                 </button>
                 <AnimatePresence>
                   {isProjectsOpen && (
