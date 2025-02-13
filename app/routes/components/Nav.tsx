@@ -100,7 +100,7 @@ export default function Nav() {
                   onClick={toggleProjectsMenu}
                   className="flex items-center justify-between w-full hover:text-teal-400 transition"
                 >
-                  Projects <ChevronDown className={`w-5 h-5 transition ${isProjectsOpen ? "rotate-180" : ""}`} />
+                  Projects <ChevronDownIcon className={`w-5 h-5 transition ${isProjectsOpen ? "rotate-180" : ""}`} />
                 </button>
                 <AnimatePresence>
                   {isProjectsOpen && (
