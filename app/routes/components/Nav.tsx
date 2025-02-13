@@ -6,8 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
 
 export default function Nav() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isProjectsOpen, setIsProjectsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isProjectsOpen, setIsProjectsOpen] = useState<boolean>(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const toggleProjectsMenu = () => setIsProjectsOpen(!isProjectsOpen);
@@ -113,17 +113,4 @@ export default function Nav() {
                           <Link href="/projects/software" className="block hover:text-teal-400 transition">Software</Link>
                         </li>
                         <li>
-                          <Link href="/projects/website" className="block hover:text-teal-400 transition">Website</Link>
-                        </li>
-                      </ul>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </li>
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </nav>
-  );
-}
+                          <Link href="/projects/website" className="block hover:text-teal
