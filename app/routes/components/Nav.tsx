@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { Link } from "@remix-run/react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown } from "lucide-react"; // Import icons
+import dynamic from "next/dynamic";
+
+const MenuIcon = dynamic(() => import("lucide-react").then((mod) => mod.Menu), { ssr: false });
+const XIcon = dynamic(() => import("lucide-react").then((mod) => mod.X), { ssr: false });
+const ChevronDownIcon = dynamic(() => import("lucide-react").then((mod) => mod.ChevronDown), { ssr: false });
 
 export default function Nav() {
   const [isOpen, setIsOpen] = useState(false);
