@@ -1,6 +1,9 @@
+"use client"; // Ensures proper hydration in Next.js
+
 import { useState } from "react";
-import { Link } from "@remix-run/react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, ChevronDown } from "lucide-react";
 
 export default function Nav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,16 +25,17 @@ export default function Nav() {
           {["Home", "About Us", "Services"].map((item, index) => (
             <Link
               key={index}
-              to={item === "Home" ? "/" : `/${item.toLowerCase().replace(" ", "")}`}
+              href={item === "Home" ? "/" : `/${item.toLowerCase().replace(/\s/g, "")}`}
               className="hover:text-teal-400 transition"
             >
               {item}
             </Link>
           ))}
+          
           {/* Projects Dropdown */}
           <div className="relative">
-            <button onClick={toggleProjectsMenu} className="hover:text-teal-400 transition">
-              Projects ▼
+            <button onClick={toggleProjectsMenu} className="flex items-center gap-1 hover:text-teal-400 transition">
+              Projects <ChevronDown size={16} />
             </button>
             <AnimatePresence>
               {isProjectsOpen && (
@@ -44,10 +48,10 @@ export default function Nav() {
                 >
                   <ul className="space-y-2 text-lg">
                     <li>
-                      <Link to="/projects/software" className="block hover:text-teal-400 transition">Software</Link>
+                      <Link href="/projects/software" className="block hover:text-teal-400 transition">Software</Link>
                     </li>
                     <li>
-                      <Link to="/projects/website" className="block hover:text-teal-400 transition">Website</Link>
+                      <Link href="/projects/website" className="block hover:text-teal-400 transition">Website</Link>
                     </li>
                   </ul>
                 </motion.div>
@@ -59,7 +63,7 @@ export default function Nav() {
         {/* Mobile Menu Button */}
         <div className="lg:hidden">
           <button onClick={toggleMenu} className="focus:outline-none">
-            {isOpen ? "Close" : "Menu"}
+            {isOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
       </div>
@@ -75,13 +79,13 @@ export default function Nav() {
             className="fixed top-0 left-0 w-64 h-full bg-[#0a192f] shadow-lg p-6 z-50"
           >
             <button onClick={toggleMenu} className="absolute top-4 right-4">
-              Close
+              <X size={28} />
             </button>
             <ul className="space-y-4 text-lg font-medium mt-10">
               {["Home", "About Us", "Services"].map((item, index) => (
                 <li key={index}>
                   <Link
-                    to={item === "Home" ? "/" : `/${item.toLowerCase().replace(" ", "")}`}
+                    href={item === "Home" ? "/" : `/${item.toLowerCase().replace(/\s/g, "")}`}
                     className="block hover:text-teal-400 transition"
                     onClick={() => setIsOpen(false)}
                   >
@@ -89,10 +93,11 @@ export default function Nav() {
                   </Link>
                 </li>
               ))}
+              
               {/* Mobile Projects Dropdown */}
               <li className="relative">
-                <button onClick={toggleProjectsMenu} className="hover:text-teal-400 transition">
-                  Projects ▼
+                <button onClick={toggleProjectsMenu} className="flex items-center gap-1 hover:text-teal-400 transition">
+                  Projects <ChevronDown size={16} />
                 </button>
                 <AnimatePresence>
                   {isProjectsOpen && (
@@ -105,10 +110,10 @@ export default function Nav() {
                     >
                       <ul className="space-y-2">
                         <li>
-                          <Link to="/projects/software" className="block hover:text-teal-400 transition">Software</Link>
+                          <Link href="/projects/software" className="block hover:text-teal-400 transition">Software</Link>
                         </li>
                         <li>
-                          <Link to="/projects/website" className="block hover:text-teal-400 transition">Website</Link>
+                          <Link href="/projects/website" className="block hover:text-teal-400 transition">Website</Link>
                         </li>
                       </ul>
                     </motion.div>
