@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { Link } from "@remix-run/react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, ChevronDown } from "lucide-react"; // Import icons
 
 export default function Nav() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isProjectsOpen, setIsProjectsOpen] = useState(false); // State for project dropdown
+  const [isProjectsOpen, setIsProjectsOpen] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
-  const toggleProjectsMenu = () => setIsProjectsOpen(!isProjectsOpen); // Toggle for project dropdown
+  const toggleProjectsMenu = () => setIsProjectsOpen(!isProjectsOpen);
 
   return (
     <nav className="bg-[#0a192f] text-white shadow-lg">
@@ -20,28 +21,18 @@ export default function Nav() {
         {/* Desktop Navigation */}
         <div className="hidden lg:flex space-x-6 text-lg font-medium">
           {["Home", "About Us", "Services"].map((item, index) => (
-            <div key={index} className="relative">
-              <Link
-                to={item === "Home" ? "/" : `/${item.toLowerCase().replace(" ", "")}`}
-                className="hover:text-teal-400 transition"
-              >
-                {item}
-              </Link>
-              <motion.div
-                className="absolute left-0 bottom-0 h-1 bg-teal-400 rounded-full"
-                initial={{ width: 0 }}
-                whileHover={{ width: "100%" }}
-                transition={{ duration: 0.3 }}
-              />
-            </div>
+            <Link
+              key={index}
+              to={item === "Home" ? "/" : `/${item.toLowerCase().replace(" ", "")}`}
+              className="hover:text-teal-400 transition"
+            >
+              {item}
+            </Link>
           ))}
           {/* Projects Dropdown */}
           <div className="relative">
-            <button
-              onClick={toggleProjectsMenu}
-              className="text-lg font-medium hover:text-teal-400 transition"
-            >
-              Projects
+            <button onClick={toggleProjectsMenu} className="flex items-center gap-1 hover:text-teal-400 transition">
+              Projects <ChevronDown className="w-5 h-5" />
             </button>
             <AnimatePresence>
               {isProjectsOpen && (
@@ -54,20 +45,10 @@ export default function Nav() {
                 >
                   <ul className="space-y-2 text-lg">
                     <li>
-                      <Link
-                        to="/projects/software"
-                        className="block text-white hover:text-teal-400 transition"
-                      >
-                        Software
-                      </Link>
+                      <Link to="/projects/software" className="block hover:text-teal-400 transition">Software</Link>
                     </li>
                     <li>
-                      <Link
-                        to="/projects/website"
-                        className="block text-white hover:text-teal-400 transition"
-                      >
-                        Website
-                      </Link>
+                      <Link to="/projects/website" className="block hover:text-teal-400 transition">Website</Link>
                     </li>
                   </ul>
                 </motion.div>
@@ -79,32 +60,27 @@ export default function Nav() {
         {/* Mobile Menu Button */}
         <div className="lg:hidden">
           <button onClick={toggleMenu} className="focus:outline-none">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className="w-8 h-8"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+            {isOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Navigation Menu */}
+      {/* Mobile Sidebar */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
+            initial={{ x: "-100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "-100%" }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden bg-[#0a192f] p-4"
+            className="fixed top-0 left-0 w-64 h-full bg-[#0a192f] shadow-lg p-6 z-50"
           >
-            <ul className="flex flex-col space-y-4 text-center text-lg font-medium">
+            <button onClick={toggleMenu} className="absolute top-4 right-4">
+              <X className="w-6 h-6 text-white" />
+            </button>
+            <ul className="space-y-4 text-lg font-medium mt-10">
               {["Home", "About Us", "Services"].map((item, index) => (
-                <motion.li key={index} whileHover={{ scale: 1.1 }} transition={{ duration: 0.2 }}>
+                <li key={index}>
                   <Link
                     to={item === "Home" ? "/" : `/${item.toLowerCase().replace(" ", "")}`}
                     className="block hover:text-teal-400 transition"
@@ -112,50 +88,37 @@ export default function Nav() {
                   >
                     {item}
                   </Link>
-                </motion.li>
+                </li>
               ))}
               {/* Mobile Projects Dropdown */}
-              <motion.li
-                key="projects"
-                className="relative"
-                whileHover={{ scale: 1.1 }}
-                transition={{ duration: 0.2 }}
-              >
+              <li className="relative">
                 <button
                   onClick={toggleProjectsMenu}
-                  className="block hover:text-teal-400 transition"
+                  className="flex items-center justify-between w-full hover:text-teal-400 transition"
                 >
-                  Projects
+                  Projects <ChevronDown className={`w-5 h-5 transition ${isProjectsOpen ? "rotate-180" : ""}`} />
                 </button>
-                {isProjectsOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.3 }}
-                    className="bg-[#0a192f] p-4 mt-2 rounded-lg shadow-lg"
-                  >
-                    <ul className="space-y-2 text-lg">
-                      <li>
-                        <Link
-                          to="/projects/software"
-                          className="block text-white hover:text-teal-400 transition"
-                        >
-                          Software
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/projects/website"
-                          className="block text-white hover:text-teal-400 transition"
-                        >
-                          Website
-                        </Link>
-                      </li>
-                    </ul>
-                  </motion.div>
-                )}
-              </motion.li>
+                <AnimatePresence>
+                  {isProjectsOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.3 }}
+                      className="mt-2 pl-4 border-l border-gray-600"
+                    >
+                      <ul className="space-y-2">
+                        <li>
+                          <Link to="/projects/software" className="block hover:text-teal-400 transition">Software</Link>
+                        </li>
+                        <li>
+                          <Link to="/projects/website" className="block hover:text-teal-400 transition">Website</Link>
+                        </li>
+                      </ul>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </li>
             </ul>
           </motion.div>
         )}
