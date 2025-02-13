@@ -36,7 +36,7 @@ export default function Nav() {
           {/* Projects Dropdown */}
           <div className="relative">
             <button onClick={toggleProjectsMenu} className="flex items-center gap-1 hover:text-teal-400 transition">
-              Projects <ChevronDown className="w-5 h-5" />
+              Projects <ChevronDownIcon className="w-5 h-5" />
             </button>
             <AnimatePresence>
               {isProjectsOpen && (
